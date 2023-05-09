@@ -5,7 +5,6 @@ using SocialMedia.Models;
 using SocialMedia.Models.DTO;
 using SocialMedia.Repositories.Interfaces;
 using System.Security.Cryptography;
-using System.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace SocialMedia.Repositories

@@ -22,6 +22,24 @@ namespace SocialMedia.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("SocialMedia.Models.FriendRequest", b =>
+                {
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReciverId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("SenderId", "ReciverId");
+
+                    b.HasIndex("ReciverId");
+
+                    b.ToTable("FriendRequests");
+                });
+
             modelBuilder.Entity("SocialMedia.Models.UserAccount", b =>
                 {
                     b.Property<int>("UserId")
@@ -56,6 +74,32 @@ namespace SocialMedia.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("UserAccounts");
+                });
+
+            modelBuilder.Entity("SocialMedia.Models.FriendRequest", b =>
+                {
+                    b.HasOne("SocialMedia.Models.UserAccount", "Reciver")
+                        .WithMany("FriendRequestsRecived")
+                        .HasForeignKey("ReciverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SocialMedia.Models.UserAccount", "Sender")
+                        .WithMany("FriendRequestsSend")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Reciver");
+
+                    b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("SocialMedia.Models.UserAccount", b =>
+                {
+                    b.Navigation("FriendRequestsRecived");
+
+                    b.Navigation("FriendRequestsSend");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,6 +13,9 @@ namespace SocialMedia.Models
         public DateTime DateOfBirth { get; set; }
         public string Name { get; set; }
 
+        public ICollection<FriendRequest> FriendRequestsSend { get; set; }
+        public ICollection<FriendRequest> FriendRequestsRecived { get; set; }
+
 
     }
 }

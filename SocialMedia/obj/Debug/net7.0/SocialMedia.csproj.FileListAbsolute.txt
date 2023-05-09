@@ -74,12 +74,4 @@ D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\obj\Debug\net7.0\refint\SocialMed
 D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\obj\Debug\net7.0\SocialMedia.pdb
 D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\obj\Debug\net7.0\SocialMedia.genruntimeconfig.cache
 D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\obj\Debug\net7.0\ref\SocialMedia.dll
-D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\bin\Debug\net7.0\EntityFramework.SqlServer.dll
-D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\bin\Debug\net7.0\EntityFramework.dll
-D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\bin\Debug\net7.0\System.Data.SqlClient.dll
-D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\bin\Debug\net7.0\runtimes\win-arm64\native\sni.dll
-D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\bin\Debug\net7.0\runtimes\win-x64\native\sni.dll
-D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\bin\Debug\net7.0\runtimes\win-x86\native\sni.dll
-D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\bin\Debug\net7.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\.Net\SocialMedia\SocialMediaAPI\SocialMedia\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -7,14 +7,30 @@ namespace SocialMedia.Data
     {
         public SocialDBContext(DbContextOptions options) : base(options)
         {
+            
+
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
+            modelBuilder.Entity<FriendRequest>(b =>
+            {
+                b.HasKey(x => new { x.SenderId,x.ReciverId });
+
+                b.HasOne(x => x.Sender)
+                .WithMany(x => x.FriendRequestsSend)
+                .HasForeignKey(x => x.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                b.HasOne(x => x.Reciver)
+                .WithMany(x => x.FriendRequestsRecived)
+                .HasForeignKey(x => x.ReciverId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
         }
+
 
         public DbSet<UserAccount> UserAccounts { get; set; }
-
+        public DbSet<FriendRequest> FriendRequests { get; set; }
     }
 }
