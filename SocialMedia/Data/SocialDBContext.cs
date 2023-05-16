@@ -7,8 +7,6 @@ namespace SocialMedia.Data
     {
         public SocialDBContext(DbContextOptions options) : base(options)
         {
-            
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,10 +25,26 @@ namespace SocialMedia.Data
                 .HasForeignKey(x => x.ReciverId)
                 .OnDelete(DeleteBehavior.Restrict);
             });
+
+            modelBuilder.Entity<Friendship>(b =>
+            {
+                b.HasKey( x => new {x.User1Id,x.User2Id});
+
+                b.HasOne(x => x.User1)
+                .WithMany(x => x.Friends)
+                .HasForeignKey(x => x.User1Id)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                b.HasOne(x => x.User2)
+                .WithMany(x => x.FriendsOf)
+                .HasForeignKey(b => b.User2Id)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
         }
 
 
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
+        public DbSet<Friendship> Friendships { get; set; }
     }
 }

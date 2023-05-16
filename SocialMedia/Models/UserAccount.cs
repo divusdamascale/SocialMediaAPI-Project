@@ -12,9 +12,12 @@ namespace SocialMedia.Models
         public string Country { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Name { get; set; }
-
+        
         public ICollection<FriendRequest> FriendRequestsSend { get; set; }
         public ICollection<FriendRequest> FriendRequestsRecived { get; set; }
+
+        public ICollection<Friendship> FriendsOf { get; set; }
+        public ICollection<Friendship> Friends { get; set; }
 
 
     }
