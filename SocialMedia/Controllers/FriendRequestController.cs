@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Models;
 using SocialMedia.Repositories.Interfaces;
+using SocialMedia.Utilities;
 using System.Reflection.Metadata.Ecma335;
 
 namespace SocialMedia.Controllers
@@ -8,6 +10,7 @@ namespace SocialMedia.Controllers
     public class FriendRequestController : Controller
     {
         private readonly IFriendRequestRepository friendRequestRepository;
+ 
 
         public FriendRequestController(IFriendRequestRepository friendRequestRepository)
         {
@@ -15,21 +18,20 @@ namespace SocialMedia.Controllers
         }
 
         [HttpGet("get")]
-        public async Task<IActionResult> Index(int userId)
+        public async Task<IActionResult> Index(string jwtToken)
         {
-            //De implementat sa poate fi folosit doar cu JWT VALID si scoaterea userID din jwt
+            var userId = Helper.ExtractUserIdFromJwt(jwtToken);
             var friendRequests = await friendRequestRepository.GetFriendRequestsAsync(userId); 
             return Ok(friendRequests);
         }
 
         [HttpPost("send")]
-        public async Task<IActionResult> SendRequest(int senderId,int reciverId)
+        public async Task<IActionResult> SendRequest(string jwtToken,int reciverId)
         {
-            //De implementat sa poate fi folosit doar cu JWT VALID si scoaterea senderId din jwt
-            //De implementat verificarea daca sunt deja prieteni
+
             var friendRequest = new FriendRequest
             {
-                SenderId = senderId,
+                SenderId = Helper.ExtractUserIdFromJwt(jwtToken),
                 ReciverId = reciverId,
                 Date = DateTime.Now
             };
@@ -40,9 +42,9 @@ namespace SocialMedia.Controllers
         }
 
         [HttpPost("accept")]
-        public async Task<IActionResult> AcceptRequest(int senderId,int reciverId)
+        public async Task<IActionResult> AcceptRequest(int senderId,string jwtToken)
         {
-            var request = await friendRequestRepository.GetSpecificFriendRequestAsync(senderId, reciverId);
+            var request = await friendRequestRepository.GetSpecificFriendRequestAsync(senderId, Helper.ExtractUserIdFromJwt(jwtToken));
             if (request == null) return BadRequest();
 
             await friendRequestRepository.AcceptFriendRequestAsync(request);
@@ -51,13 +53,15 @@ namespace SocialMedia.Controllers
         }
 
         [HttpPost("reject")]
-        public async Task<IActionResult> RejectRequest(int senderId,int reciverId)
+        public async Task<IActionResult> RejectRequest(int senderId,string jwtToken)
         {
-            var request = await friendRequestRepository.GetSpecificFriendRequestAsync(senderId,reciverId);
+            var request = await friendRequestRepository.GetSpecificFriendRequestAsync(senderId,Helper.ExtractUserIdFromJwt(jwtToken));
             if(request == null) return BadRequest();
             await friendRequestRepository.RejectFriendRequestAsync(request);
 
             return Ok();
         }
+
+
     }
 }

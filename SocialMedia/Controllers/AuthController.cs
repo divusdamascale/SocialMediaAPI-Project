@@ -39,7 +39,7 @@ namespace SocialMedia.Controllers
         [HttpPost]
         [Route("Login")]
 
-        public  IActionResult Register([FromBody] UserToLoginDto user)
+        public  IActionResult Login([FromBody] UserToLoginDto user)
         {
             var userInfo = authRepository.AuthenticateAsync(user);
             if(userInfo == null)
@@ -56,6 +56,7 @@ namespace SocialMedia.Controllers
             var credentials = new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
+                new Claim(ClaimTypes.NameIdentifier,user.UserId.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Country,user.Country)
@@ -64,7 +65,7 @@ namespace SocialMedia.Controllers
             var token = new JwtSecurityToken(config["Jwt:Issuer"],
                config["Jwt:Audience"],
                claims,
-               expires: DateTime.Now.AddMinutes(15),
+               expires: DateTime.Now.AddMinutes(30),
                signingCredentials: credentials);
 
 

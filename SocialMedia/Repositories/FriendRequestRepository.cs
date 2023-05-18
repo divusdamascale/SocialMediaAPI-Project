@@ -35,7 +35,7 @@ namespace SocialMedia.Repositories
 
         public async Task<List<FriendRequestDTO>> GetFriendRequestsAsync(int userId)
         {
-            return await _dBContext.FriendRequests
+            var friends = await _dBContext.FriendRequests
                 .Include(fr => fr.Sender)
                 .Where(fr => fr.ReciverId == userId)
                 .Select(fr => new FriendRequestDTO
@@ -46,6 +46,8 @@ namespace SocialMedia.Repositories
 
                 })
                 .ToListAsync<FriendRequestDTO>();
+
+            return friends;
         }
 
         public async Task<FriendRequest> GetSpecificFriendRequestAsync(int senderId,int reciverId)
