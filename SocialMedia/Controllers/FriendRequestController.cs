@@ -10,7 +10,6 @@ namespace SocialMedia.Controllers
     public class FriendRequestController : Controller
     {
         private readonly IFriendRequestRepository friendRequestRepository;
- 
 
         public FriendRequestController(IFriendRequestRepository friendRequestRepository)
         {

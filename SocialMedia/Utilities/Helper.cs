@@ -8,6 +8,8 @@ namespace SocialMedia.Utilities
 
         public static int ExtractUserIdFromJwt(string jwtToken)
         {
+
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtSecurityToken = tokenHandler.ReadJwtToken(jwtToken);
 
