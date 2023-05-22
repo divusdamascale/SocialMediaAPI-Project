@@ -26,7 +26,16 @@ namespace SocialMedia.Repositories
                 Date = DateTime.Now,
             };
 
+            var friendshipReverse = new Friendship
+            {
+                User1Id = request.SenderId,
+                User2Id = request.ReciverId,
+                Date = DateTime.Now,
+            };
+
+
             await _dBContext.Friendships.AddAsync(friendship);
+            await _dBContext.Friendships.AddAsync(friendshipReverse);
             _dBContext.FriendRequests.Remove(request);
             await _dBContext.SaveChangesAsync();
             //not the best practice(to remediate)
