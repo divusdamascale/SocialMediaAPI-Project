@@ -8,8 +8,8 @@ namespace SocialMedia.Models
         public int ReciverId { get; set; }
         public DateTime Date { get; set; }
 
-        public UserAccount Sender { get; set; }
-        public UserAccount Reciver { get; set; }
+        public UserAccount? Sender { get; set; }
+        public UserAccount? Reciver { get; set; }
 
     }
 }

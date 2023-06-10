@@ -74,7 +74,8 @@ namespace SocialMedia.Repositories
                 PasswordSalt = passwordkey,
                 Country = user.Country,
                 Name = user.Name,
-                DateOfBirth = user.DateOfBirth
+                DateOfBirth = user.DateOfBirth,
+                ProfilePicturePath = user.ProfilePicturePath
             };
             await db.UserAccounts.AddAsync(userAccount);
             db.SaveChanges();
