@@ -40,11 +40,20 @@ namespace SocialMedia.Data
                 .HasForeignKey(b => b.User2Id)
                 .OnDelete(DeleteBehavior.Restrict);
             });
+
+
+            modelBuilder.Entity<UserAccount>()
+                .HasMany(p => p.Posts)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId);
+
         }
 
 
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
     }
 }
