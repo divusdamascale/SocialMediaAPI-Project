@@ -78,7 +78,7 @@ namespace SocialMedia.Controllers
         }
 
 
-        [HttpPost("reject")]
+        [HttpDelete("reject")]
         public async Task<IActionResult> RejectRequest(int senderId,string jwtToken)
         {
             try
