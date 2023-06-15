@@ -27,27 +27,41 @@ namespace SocialMedia.Controllers
 
         public async Task<IActionResult> Register([FromBody] UserToRegisterDto user)
         {
-            await authRepository.RegisterAsync(user);
-            if(user == null)
+            try
             {
-                return BadRequest("Email already exist");
-            }
+                await authRepository.RegisterAsync(user);
+                if(user == null)
+                {
+                    return BadRequest("Email already exists");
+                }
 
-            return Ok();
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,"An error occurred during registration. Please try again later.");
+            }
         }
 
         [HttpPost]
         [Route("Login")]
 
-        public  IActionResult Login([FromBody] UserToLoginDto user)
+        public IActionResult Login([FromBody] UserToLoginDto user)
         {
-            var userInfo = authRepository.AuthenticateAsync(user);
-            if(userInfo == null)
+            try
             {
-                return BadRequest("Email or password are not good");
-            }
+                var userInfo = authRepository.AuthenticateAsync(user);
+                if(userInfo == null)
+                {
+                    return BadRequest("Email or password are not valid");
+                }
 
-            return Ok(CreateJWT(userInfo));
+                return Ok(CreateJWT(userInfo));
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,"An error occurred during login. Please try again later.");
+            }
         }
 
         private string CreateJWT(UserAccount user)

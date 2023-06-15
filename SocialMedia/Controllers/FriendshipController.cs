@@ -20,19 +20,34 @@ namespace SocialMedia.Controllers
         [HttpGet("friends")]
         public async Task<IActionResult> Friends(string jwtToken)
         {
-            var userId = Helper.ExtractUserIdFromJwt(jwtToken);
-            var friendRequests = await friendshipRepository.GetFriendsAsync(userId);
-            return Ok(friendRequests);
+            try
+            {
+                var userId = Helper.ExtractUserIdFromJwt(jwtToken);
+                var friendRequests = await friendshipRepository.GetFriendsAsync(userId);
+                return Ok(friendRequests);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500,"A apărut o eroare în server. Vă rugăm să încercați din nou mai târziu.");
+            }
         }
+
 
         [HttpDelete("deleteFriend")]
 
         public async Task<IActionResult> DeleteFriend(string jwtToken,int deleteFriendId)
         {
-            var userId = Helper.ExtractUserIdFromJwt(jwtToken);
-            await friendshipRepository.DeleteFriend(userId,deleteFriendId);
+            try
+            {
+                var userId = Helper.ExtractUserIdFromJwt(jwtToken);
+                await friendshipRepository.DeleteFriend(userId,deleteFriendId);
 
-            return Ok();
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500,"A apărut o eroare în server. Vă rugăm să încercați din nou mai târziu.");
+            }
         }
 
     }

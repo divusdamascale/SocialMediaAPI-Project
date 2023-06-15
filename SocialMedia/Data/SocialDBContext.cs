@@ -53,7 +53,6 @@ namespace SocialMedia.Data
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
-
         public DbSet<Post> Posts { get; set; }
     }
 }
