@@ -71,9 +71,7 @@ namespace SocialMedia.Controllers
             }
             catch(Exception ex)
             {
-                // Gestionează eroarea aici
-                // Poți utiliza un mesaj de eroare personalizat sau orice altă acțiune necesară
-
+            
                 return StatusCode(500,"A apărut o eroare în server. Vă rugăm să încercați din nou mai târziu.");
             }
         }
