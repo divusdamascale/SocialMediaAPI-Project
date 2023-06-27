@@ -21,6 +21,10 @@ namespace SocialMedia.Models
         public ICollection<Friendship>? Friends { get; set; }
 
         public ICollection<Post>? Posts { get; set; }
+        public ICollection<PostLike>? PostLikes { get; set; }
+
+
+
 
 
     }

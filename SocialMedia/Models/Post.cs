@@ -12,6 +12,8 @@ namespace SocialMedia.Models
         public int UserId { get; set; }
         public UserAccount User { get; set; }
 
+        public IEnumerable<PostLike> PostLikes { get; set; }
+
 
 
     }

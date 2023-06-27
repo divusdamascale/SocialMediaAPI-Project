@@ -70,5 +70,45 @@ namespace SocialMedia.Repositories
             return posts;
 
         }
+
+        public async Task<IEnumerable<FriendPostDTO>> GetxPosts(int UserId)
+        {
+            var post = await social.Posts
+                .Where(p => p.UserId == UserId)
+                .OrderByDescending(p => p.CreatedAt)
+                .Select(p => new FriendPostDTO
+                {
+                    PostId = p.PostId,
+                    Content = p.Content,
+                    CreatedAt = p.CreatedAt,
+                    UserId = p.UserId,
+                    Name = p.User.Name
+                })
+                .ToListAsync();
+
+            return post;
+        }
+
+        public async Task<IEnumerable<ViewLikeDTO>> ViewLikes(int postId)
+        {
+            if(await social.Posts.SingleOrDefaultAsync(p=> p.PostId == postId) == null)
+            {
+                return null;
+            }
+
+            var likes = await social.PostLikes
+                .Where(p => p.PostId == postId)
+                .OrderByDescending(p => p.Time)
+                .Select(p => new ViewLikeDTO
+                {
+                    UserId = p.UserId,
+                    PostId = p.PostId,
+                    Time = p.Time,
+                })
+                .ToListAsync();
+
+            return likes;
+
+        }
     }
 }

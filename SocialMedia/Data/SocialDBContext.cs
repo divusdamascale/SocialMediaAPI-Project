@@ -28,7 +28,7 @@ namespace SocialMedia.Data
 
             modelBuilder.Entity<Friendship>(b =>
             {
-                b.HasKey( x => new {x.User1Id,x.User2Id});
+                b.HasKey(x => new { x.User1Id,x.User2Id });
 
                 b.HasOne(x => x.User1)
                 .WithMany(x => x.Friends)
@@ -47,6 +47,22 @@ namespace SocialMedia.Data
                 .WithOne(u => u.User)
                 .HasForeignKey(u => u.UserId);
 
+            modelBuilder.Entity<PostLike>(b =>
+            {
+                b.HasKey(x => new { x.PostId,x.UserId });
+
+                b.HasOne(x => x.Giver)
+                .WithMany(x => x.PostLikes)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                b.HasOne(x => x.Post)
+                .WithMany(x => x.PostLikes)
+                .HasForeignKey(x => x.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
+
         }
 
 
@@ -54,5 +70,7 @@ namespace SocialMedia.Data
         public DbSet<FriendRequest> FriendRequests { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
         public DbSet<Post> Posts { get; set; }
+
+        public DbSet<PostLike> PostLikes { get; set; }
     }
 }

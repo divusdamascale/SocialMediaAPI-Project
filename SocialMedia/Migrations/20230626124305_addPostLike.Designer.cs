@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialMedia.Data;
 
@@ -11,9 +12,11 @@ using SocialMedia.Data;
 namespace SocialMedia.Migrations
 {
     [DbContext(typeof(SocialDBContext))]
-    partial class SocialDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230626124305_addPostLike")]
+    partial class addPostLike
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,9 +196,9 @@ namespace SocialMedia.Migrations
                         .IsRequired();
 
                     b.HasOne("SocialMedia.Models.UserAccount", "Giver")
-                        .WithMany("PostLikes")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Giver");
@@ -217,8 +220,6 @@ namespace SocialMedia.Migrations
                     b.Navigation("Friends");
 
                     b.Navigation("FriendsOf");
-
-                    b.Navigation("PostLikes");
 
                     b.Navigation("Posts");
                 });

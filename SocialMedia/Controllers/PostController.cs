@@ -4,6 +4,7 @@ using SocialMedia.Models.DTO;
 using SocialMedia.Repositories.Interfaces;
 using SocialMedia.Utilities;
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace SocialMedia.Controllers
 {
@@ -28,6 +29,23 @@ namespace SocialMedia.Controllers
             catch(Exception ex)
             {
 
+                return StatusCode(500,"A apărut o eroare în server. Vă rugăm să încercați din nou mai târziu.");
+            }
+        }
+
+        [HttpGet("getXpost")]
+
+        public async Task<ActionResult<IEnumerable<FriendPostDTO>>> GetXPosts(int UserId)
+        {
+            try {
+                var posts = await postRepository.GetxPosts(UserId);
+
+
+
+                return Ok(posts);
+            }
+            catch(Exception ex) 
+            {
                 return StatusCode(500,"A apărut o eroare în server. Vă rugăm să încercați din nou mai târziu.");
             }
         }
@@ -71,10 +89,19 @@ namespace SocialMedia.Controllers
             }
             catch(Exception ex)
             {
-            
+
                 return StatusCode(500,"A apărut o eroare în server. Vă rugăm să încercați din nou mai târziu.");
             }
         }
+
+        [HttpGet("ViewLikes")]
+        public async Task<IEnumerable<ViewLikeDTO>> GetPostLikes(int postId)
+        {
+            var likeList = await postRepository.ViewLikes(postId);
+
+            return likeList;
+        }
+        
 
     }
 }
