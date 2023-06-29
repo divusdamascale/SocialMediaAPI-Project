@@ -62,6 +62,20 @@ namespace SocialMedia.Data
                 .OnDelete(DeleteBehavior.Restrict);
             });
 
+            modelBuilder.Entity<PostComment>(b =>
+            {
+
+                b.HasOne(x => x.Giver)
+                .WithMany(x => x.PostComments)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+                b.HasOne(x => x.Post)
+                .WithMany(x => x.PostComments)
+                .HasForeignKey(x => x.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
+
 
         }
 
@@ -72,5 +86,7 @@ namespace SocialMedia.Data
         public DbSet<Post> Posts { get; set; }
 
         public DbSet<PostLike> PostLikes { get; set; }
+
+        public DbSet<PostComment> PostComments { get; set; }
     }
 }

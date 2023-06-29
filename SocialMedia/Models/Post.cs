@@ -13,6 +13,7 @@ namespace SocialMedia.Models
         public UserAccount User { get; set; }
 
         public IEnumerable<PostLike> PostLikes { get; set; }
+        public IEnumerable<PostComment> PostComments { get; set; }
 
 
 

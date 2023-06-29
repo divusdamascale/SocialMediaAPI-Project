@@ -23,6 +23,8 @@ namespace SocialMedia.Models
         public ICollection<Post>? Posts { get; set; }
         public ICollection<PostLike>? PostLikes { get; set; }
 
+        public ICollection<PostComment>? PostComments { get; set; }
+
 
 
 
